@@ -1,27 +1,20 @@
 package hu.hobby.whattocook.validators;
 
-
-import hu.hobby.whattocook.dto.incoming.CustomUserCommand;
-import hu.hobby.whattocook.dto.incoming.RecipeCommand;
+import hu.hobby.whattocook.dto.incoming.CommentCommand;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class CustomUserCommandValidator implements Validator {
-
+public class CommentCommandValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
-        return CustomUserCommand.class.equals(clazz);
+        return CommentCommand.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        CustomUserCommand customUserCommand = (CustomUserCommand) target;
-
+        CommentCommand commentCommand = (CommentCommand) target;
         //TODO
-
     }
-
-
 }

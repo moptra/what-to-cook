@@ -1,6 +1,8 @@
 package hu.hobby.whattocook.service;
 
 
+import hu.hobby.whattocook.domain.CustomUser;
+import hu.hobby.whattocook.dto.incoming.CustomUserCommand;
 import hu.hobby.whattocook.repository.CustomUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,9 @@ public class CustomUserService implements UserDetailsService {
 
     }
 
+    public void registerUser(CustomUserCommand customUserCommand) {
+        CustomUser customUser = new CustomUser(customUserCommand);
+        customUser.setPassword(passwordEncoder.encode(customUserCommand.getPassword()));
+        customUserRepository.save(customUser);
+    }
 }

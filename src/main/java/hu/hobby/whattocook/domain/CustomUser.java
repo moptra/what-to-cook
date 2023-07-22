@@ -2,9 +2,11 @@ package hu.hobby.whattocook.domain;
 
 
 import hu.hobby.whattocook.domain.enums.UserRole;
+import hu.hobby.whattocook.dto.incoming.CustomUserCommand;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +19,9 @@ public class CustomUser {
 
     @Column(unique = true, name = "username")
     private String username;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -39,6 +44,18 @@ public class CustomUser {
 
     public CustomUser() {
     }
+
+    public CustomUser(CustomUserCommand customUserCommand) {
+        this.username = customUserCommand.getUsername();
+        this.userRole = UserRole.ROLE_READER_WRITER;
+        this.registrationDate = LocalDateTime.now();
+        this.isDeleted = false;
+        this.recipeList = new ArrayList<>();
+        this.commentList = new ArrayList<>();
+        this.email = customUserCommand.getEmail();
+    }
+
+
 
     public Long getUserId() {
         return userId;
@@ -87,4 +104,29 @@ public class CustomUser {
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
+
+    public List<Recipe> getRecipeList() {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
+
