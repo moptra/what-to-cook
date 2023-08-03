@@ -6,6 +6,8 @@ import hu.hobby.whattocook.dto.incoming.CustomUserCommand;
 import hu.hobby.whattocook.repository.CustomUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,13 +26,17 @@ public class CustomUserService implements UserDetailsService {
         this.customUserRepository = customUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-        //TODO
+        CustomUser customUser = customUserRepository.findByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
+        String role = customUser.getUserRole().toString();
 
+        return User
+                .withUsername(customUser.getUsername())
+                .authorities(AuthorityUtils.createAuthorityList(role))
+                .password(customUser.getPassword())
+                .build();
     }
 
     public void registerUser(CustomUserCommand customUserCommand) {

@@ -5,6 +5,7 @@ import hu.hobby.whattocook.domain.enums.UserRole;
 import hu.hobby.whattocook.dto.incoming.CustomUserCommand;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CustomUser {
     private UserRole userRole;
 
     @Column(name = "registration_date")
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 
     @Column(name = "is_deleted")
     private Boolean isDeleted;
@@ -48,7 +49,7 @@ public class CustomUser {
     public CustomUser(CustomUserCommand customUserCommand) {
         this.username = customUserCommand.getUsername();
         this.userRole = UserRole.ROLE_READER_WRITER;
-        this.registrationDate = LocalDateTime.now();
+        this.registrationDate = LocalDate.now();
         this.isDeleted = false;
         this.recipeList = new ArrayList<>();
         this.commentList = new ArrayList<>();
@@ -89,11 +90,11 @@ public class CustomUser {
         this.userRole = userRole;
     }
 
-    public LocalDateTime getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(LocalDateTime registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 

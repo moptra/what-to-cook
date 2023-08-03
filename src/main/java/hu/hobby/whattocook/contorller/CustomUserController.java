@@ -37,14 +37,17 @@ public class CustomUserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-/*    @PostMapping("/login")
+
+    //TODO login unsuccessful STATUS CODE 401
+
+    @PostMapping("/login")
     public ResponseEntity<String> login(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             return new ResponseEntity<>("Login successful", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("U are already logged in", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("You are already logged in", HttpStatus.BAD_REQUEST);
         }
-    }*/
+    }
 
 }
